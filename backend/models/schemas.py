@@ -22,21 +22,23 @@ class ParseDemoRequest(BaseModel):
 
 class CompetitorAnalysis(BaseModel):
     """Структурированный анализ конкурента"""
-    strengths: List[str] = Field(default_factory=list, description="Сильные стороны")
-    weaknesses: List[str] = Field(default_factory=list, description="Слабые стороны")
-    unique_offers: List[str] = Field(default_factory=list, description="Уникальные предложения")
-    recommendations: List[str] = Field(default_factory=list, description="Рекомендации")
-    summary: str = Field("", description="Общее резюме")
-
+    strengths: list[str] = []
+    weaknesses: list[str] = []
+    unique_offers: list[str] = []
+    recommendations: list[str] = []
+    target_audience: list[str] = []
+    marketing_tone: list[str] = []
+    summary: str = ""
 
 class ImageAnalysis(BaseModel):
     """Анализ изображения"""
-    description: str = Field("", description="Описание изображения")
-    marketing_insights: List[str] = Field(default_factory=list, description="Маркетинговые инсайты")
-    visual_style_score: int = Field(0, ge=0, le=10, description="Оценка визуального стиля (0-10)")
-    visual_style_analysis: str = Field("", description="Анализ визуального стиля")
-    recommendations: List[str] = Field(default_factory=list, description="Рекомендации")
-
+    description: str = ""
+    marketing_insights: list[str] = []
+    target_emotion: list[str] = []
+    conversion_potential: list[str] = []
+    visual_style_score: int = 0
+    visual_style_analysis: str = ""
+    recommendations: list[str] = []
 
 class ParsedContent(BaseModel):
     """Результат парсинга страницы"""

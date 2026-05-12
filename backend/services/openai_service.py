@@ -120,9 +120,10 @@ class OpenAIService:
                 weaknesses=data.get("weaknesses", []),
                 unique_offers=data.get("unique_offers", []),
                 recommendations=data.get("recommendations", []),
+                target_audience=data.get("target_audience", []),
+                marketing_tone=data.get("marketing_tone", []),
                 summary=data.get("summary", "")
             )
-            
             logger.info(f"  Результат: {len(result.strengths)} сильных, {len(result.weaknesses)} слабых сторон")
             logger.info("=" * 50)
             
@@ -201,11 +202,12 @@ class OpenAIService:
             result = ImageAnalysis(
                 description=data.get("description", ""),
                 marketing_insights=data.get("marketing_insights", []),
+                target_emotion=data.get("target_emotion", []),
+                conversion_potential=data.get("conversion_potential", []),
                 visual_style_score=data.get("visual_style_score", 5),
                 visual_style_analysis=data.get("visual_style_analysis", ""),
                 recommendations=data.get("recommendations", [])
             )
-            
             logger.info(f"  Результат: оценка стиля {result.visual_style_score}/10")
             logger.info(f"  Инсайтов: {len(result.marketing_insights)}, рекомендаций: {len(result.recommendations)}")
             logger.info("=" * 50)
