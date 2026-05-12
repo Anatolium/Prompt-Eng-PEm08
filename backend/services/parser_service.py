@@ -44,6 +44,7 @@ class ParserService:
         start_time = time.time()
         
         options = Options()
+        options.page_load_strategy = 'eager'
         options.add_argument('--headless=new')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
@@ -83,7 +84,10 @@ class ParserService:
             # Переходим на страницу
             logger.info(f"  📄 Загрузка страницы...")
             page_start = time.time()
-            driver.get(url)
+            try:
+                driver.get(url)
+            except TimeoutException:
+                logger.warning("Timeout при загрузке страницы, продолжаем парсинг...")
             page_elapsed = time.time() - page_start
             logger.info(f"  ✓ Страница загружена за {page_elapsed:.2f} сек")
             
@@ -139,11 +143,11 @@ class ParserService:
             
             return title, h1, first_paragraph, screenshot_bytes, None
             
-        except TimeoutException:
-            total_elapsed = time.time() - total_start
-            logger.error(f"  ✗ TIMEOUT за {total_elapsed:.2f} сек")
-            logger.error("=" * 50)
-            return None, None, None, None, "Превышено время ожидания загрузки страницы"
+        # except TimeoutException:
+        #     total_elapsed = time.time() - total_start
+        #     logger.error(f"  ✗ TIMEOUT за {total_elapsed:.2f} сек")
+        #     logger.error("=" * 50)
+        #     return None, None, None, None, "Превышено время ожидания загрузки страницы"
             
         except WebDriverException as e:
             total_elapsed = time.time() - total_start
